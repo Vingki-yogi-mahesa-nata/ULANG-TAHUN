@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday My Love</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        @keyframes shine {
+            0% { box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(255, 215, 0, 0.6); }
+            100% { box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); }
+        }
+        
+        @keyframes balloon {
+            0% { transform: translateY(100vh) scale(0.8); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateY(-100vh) scale(1.2); opacity: 0; }
+        }
+        
+        @keyframes confetti {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        
+        @keyframes candle {
+            0%, 100% { box-shadow: 0 0 5px 2px rgba(255, 100, 100, 0.8); }
+            50% { box-shadow: 0 0 15px 5px rgba(255, 100, 100, 0.9); }
+        }
+        
+        .envelope {
+            animation: float 3s ease-in-out infinite, shine 3s ease-in-out infinite;
+            transition: all 0.5s ease;
+            transform-style: preserve-3d;
+        }
+        
+        .envelope:hover {
+            transform: scale(1.05) translateY(-5px);
+            animation: float 3s ease-in-out infinite, shine 1s ease-in-out infinite;
+        }
+        
+        .envelope.open {
+            animation: none;
+            transform: rotateX(180deg) scale(1.2);
+        }
+        
+        .balloon {
+            position: absolute;
+            animation: balloon 10s linear infinite;
+            z-index: 10;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            animation: confetti 5s linear infinite;
+            z-index: 10;
+        }
+        
+        .candle {
+            animation: candle 2s ease-in-out infinite alternate;
+        }
+        
+        .photo-container {
+            perspective: 1000px;
+        }
+        
+        .photo {
+            transition: transform 0.5s ease;
+            transform-style: preserve-3d;
+        }
+        
+        .photo:hover {
+            transform: rotateY(15deg) scale(1.05);
+        }
+        
+        .memory-photo:hover {
+            transform: rotateY(-15deg) scale(1.05);
+        }
+        
+        .heart-beat {
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        /* New style for blow out prompt to ensure it's on top */
+        #blowOutPrompt {
+            z-index: 20; /* Ensure it's above the cake elements */
+        }
+    </style>
+</head>
+<body class="bg-pink-50 min-h-screen flex flex-col items-center justify-center p-4 overflow-x-hidden">
+    <audio id="bgMusic" loop>
+        <source src="musik.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="flex flex-col items-center justify-center w-full max-w-4xl mx-auto">
+        <div id="envelope" class="envelope relative w-64 h-40 bg-purple-600 rounded-lg shadow-xl cursor-pointer mb-8 overflow-hidden" onclick="openEnvelope()">
+            <div class="absolute inset-0 flex items-center justify-center">
+                <div class="w-12 h-full bg-yellow-400 absolute"></div>
+                <div class="w-full h-12 bg-yellow-400 absolute"></div>
+                <div class="w-20 h-20 bg-yellow-500 rounded-full absolute"></div>
+            </div>
+            
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-yellow-200 to-yellow-400 text-purple-800 p-4 rounded-full font-bold text-lg shadow-md flex items-center justify-center z-10">
+                <p class="font-bold">Buka yakk🎁🥳👏</p>
+            </div>
+        </div>
+
+        <div id="content" class="hidden w-full text-center">
+            <h1 class="text-4xl md:text-5xl font-bold text-pink-600 mb-6 animate-bounce">Happy Birthday woii! udah 18 ajee😒 </h1>
+            
+            <div class="flex flex-col md:flex-row justify-center items-center gap-8 mb-8">
+                <div class="photo-container">
+                    <div class="photo bg-white p-2 rounded-lg shadow-lg">
+                        <img src="asset/foto (8).jpg" alt="My Beautiful Girlfriend" class="w-64 h-64 object-cover rounded-md transform rotate-0">
+                        <p class="mt-2 text-pink-600 font-medium">The Most Beautiful Girl</p>
+                    </div>
+                </div>
+                
+                <div class="photo-container">
+                    <div class="photo memory-photo bg-white p-2 rounded-lg shadow-lg">
+                        <img src="asset/foto (27).jpg" alt="Our Beautiful Memory" class="w-64 h-64 object-cover rounded-md">
+                        <p class="mt-2 text-pink-600 font-medium">Our Special Moments</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg shadow-lg max-w-2xl mx-auto mb-8 transform transition hover:scale-105">
+                <p class="text-lg md:text-xl text-gray-800 leading-relaxed">
+                    "Selamat ulang tahun yakk!! 🎉
+Semoga di usia baru ini, kamu menemukan versi terbaik dari dirimu sendiri — yang lebih tenang, lebih kuat, dan lebih jujur pada apa yang kamu inginkan.
+
+emm.. flashback nii Aku masih ingat, kamu pernah bilang hidup itu lucu — kadang capek, kadang indah. Dan kamu benar. Tapi aku juga percaya, kamu selalu punya cara untuk tetap berjalan, meski pelan. 🌿
+
+Hari ini bukan soal apa yang sudah berlalu, tapi tentang harapan yang masih mungkin dikejar. Jadi teruslah bertumbuh, peluk semua prosesnya, dan percaya… yang baik akan datang tepat waktu. ✨
+
+Selamat ulang tahun sekali lagi. Semoga kamu dikelilingi rasa syukur, dan hal-hal yang tak perlu kamu ragukan lagi, okeyy."
+                </p>
+                <div class="mt-4 flex justify-center">
+                    <i class="fas fa-heart text-red-500 text-2xl mx-1 heart-beat"></i>
+                    <i class="fas fa-heart text-pink-400 text-2xl mx-1 heart-beat" style="animation-delay: 0.2s"></i>
+                    <i class="fas fa-heart text-purple-400 text-2xl mx-1 heart-beat" style="animation-delay: 0.4s"></i>
+                </div>
+            </div>
+            
+            <div class="relative my-8 w-64 mx-auto">
+                <div id="blowOutPrompt" class="absolute inset-x-0 top-1/2 transform -translate-y-1/2 flex items-center justify-center p-3 cursor-pointer z-20" onclick="blowOutCandles()">
+                    <span class="text-pink-600 font-bold bg-white p-2 rounded-full shadow-lg hover:scale-105 transition-transform duration-200">jan lupa tiup lilin-nya!</span>
+                </div>
+                
+                <div class="bg-amber-200 w-48 h-24 mx-auto rounded-t-full relative">
+                    <div class="absolute -top-2 left-0 right-0 h-4 bg-pink-300 rounded-t-full"></div>
+                    <div id="candlesContainer" class="absolute top-1 left-0 right-0 flex justify-center space-x-6 transition-opacity duration-500">
+                        <div class="candle w-2 h-12 bg-yellow-200 rounded-full relative">
+                            <div class="absolute top-0 left-0 w-2 h-4 bg-yellow-300 rounded-full"></div>
+                        </div>
+                        <div class="candle w-2 h-10 bg-blue-200 rounded-full relative" style="animation-delay: 0.5s">
+                            <div class="absolute top-0 left-0 w-2 h-4 bg-blue-300 rounded-full"></div>
+                        </div>
+                        <div class="candle w-2 h-14 bg-pink-200 rounded-full relative" style="animation-delay: 1s">
+                            <div class="absolute top-0 left-0 w-2 h-4 bg-pink-300 rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-amber-300 w-56 h-8 mx-auto rounded-b-lg"></div>
+                <div class="bg-amber-400 w-64 h-12 mx-auto rounded-b-lg"></div>
+            </div>
+            
+        
+
+            <div id="ourMemoryGallery" class="mt-12 mb-8 p-6 bg-white rounded-lg shadow-lg hidden animate__animated">
+                <h2 class="text-3xl font-bold text-pink-600 mb-6">Our Memory Gallery</h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <div class="p-1 border border-pink-200 rounded-lg shadow-sm">
+                        <img src="asset/foto (1).jpg" alt="Our Memory 1" class="w-full h-32 md:h-40 object-cover rounded-md">
+                    </div>
+                    <div class="p-1 border border-pink-200 rounded-lg shadow-sm">
+                        <img src="asset/foto (6).jpg" alt="Our Memory 2" class="w-full h-32 md:h-40 object-cover rounded-md">
+                    </div>
+                    <div class="p-1 border border-pink-200 rounded-lg shadow-sm">
+                        <img src="asset/foto (33).jpg" alt="Our Memory 3" class="w-full h-32 md:h-40 object-cover rounded-md">
+                    </div>
+                    <div class="p-1 border border-pink-200 rounded-lg shadow-sm">
+                        <img src="asset/foto (30).jpg" alt="Our Memory 4" class="w-full h-32 md:h-40 object-cover rounded-md">
+                    </div>
+                    <div class="p-1 border border-pink-200 rounded-lg shadow-sm">
+                        <img src="asset/foto (3).jpg" alt="Our Memory 5" class="w-full h-32 md:h-40 object-cover rounded-md">
+                    </div>
+                    <div class="p-1 border border-pink-200 rounded-lg shadow-sm">
+                        <img src="asset/foto (26).jpg" alt="Our Memory 6" class="w-full h-32 md:h-40 object-cover rounded-md">
+                    </div>
+                    <div class="p-1 border border-pink-200 rounded-lg shadow-sm">
+                        <img src="asset/foto (20).jpg" alt="Our Memory 7" class="w-full h-32 md:h-40 object-cover rounded-md">
+                    </div>
+                    <div class="p-1 border border-pink-200 rounded-lg shadow-sm">
+                        <img src="asset/foto (9).jpg" alt="Our Memory 8" class="w-full h-32 md:h-40 object-cover rounded-md">
+                    </div>
+                    <div class="p-1 border border-pink-200 rounded-lg shadow-sm">
+                        <img src="asset/foto (35).jpg" alt="Our Memory 9" class="w-full h-32 md:h-40 object-cover rounded-md">
+                    </div>
+                    <div class="p-1 border border-pink-200 rounded-lg shadow-sm">
+                        <img src="asset/foto (29).jpg" alt="Our Memory 10" class="w-full h-32 md:h-40 object-cover rounded-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables for Audio Spectrum
+        let audioContext;
+        let analyser;
+        let source;
+        let dataArray;
+        let bufferLength;
+        let canvas;
+        let canvasCtx;
+
+        // Function to open the envelope
+        function openEnvelope() {
+            const envelope = document.getElementById('envelope');
+            const content = document.getElementById('content');
+            const audio = document.getElementById('bgMusic');
+            
+            // Add open class to envelope
+            envelope.classList.add('open');
+            
+            // After animation completes, show content
+            setTimeout(() => {
+                envelope.style.display = 'none';
+                content.classList.remove('hidden');
+                content.classList.add('animate__animated', 'animate__fadeIn');
+                
+                // Start playing music
+                audio.play().catch(e => console.log("Auto-play prevented: ", e));
+                
+                // Create balloons
+                createBalloons(15);
+                
+                // Create confetti
+                createConfetti(50);
+
+                // Initialize audio spectrum only after user interaction
+                initAudioSpectrum();
+            }, 800);
+        }
+        
+        // Function to create balloons
+        function createBalloons(count) {
+            const colors = ['red', 'pink', 'purple', 'blue', 'yellow', 'green'];
+            
+            for (let i = 0; i < count; i++) {
+                const balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                
+                // Random properties
+                const size = Math.random() * 30 + 20;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const delay = Math.random() * 15;
+                const left = Math.random() * 100;
+                
+                balloon.style.width = `${size}px`;
+                balloon.style.height = `${size * 1.2}px`;
+                balloon.style.backgroundColor = color;
+                balloon.style.left = `${left}%`;
+                balloon.style.animationDelay = `${delay}s`;
+                balloon.style.opacity = '0';
+                
+                // Balloon string
+                balloon.innerHTML = `<div style="position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); width: 2px; height: 15px; background-color: #888;"></div>`;
+                
+                document.body.appendChild(balloon);
+                
+                // Remove balloon after animation
+                setTimeout(() => {
+                    balloon.remove();
+                }, 10000 + delay * 1000);
+            }
+        }
+        
+        // Function to create confetti
+        function createConfetti(count) {
+            const colors = ['#f00', '#0f0', '#00f', '#ff0', '#f0f', '#0ff'];
+            
+            for (let i = 0; i < count; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                
+                // Random properties
+                const size = Math.random() * 10 + 5;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const left = Math.random() * 100;
+                const delay = Math.random() * 5;
+                const duration = Math.random() * 3 + 3;
+                
+                confetti.style.width = `${size}px`;
+                confetti.style.height = `${size}px`;
+                confetti.style.backgroundColor = color;
+                confetti.style.left = `${left}%`;
+                confetti.style.animationDuration = `${duration}s`;
+                confetti.style.animationDelay = `${delay}s`;
+                
+                // Different shapes
+                if (Math.random() > 0.5) {
+                    confetti.style.borderRadius = '50%';
+                } else {
+                    confetti.style.transform = 'rotate(45deg)';
+                }
+                
+                document.body.appendChild(confetti);
+                
+                // Remove confetti after animation
+                setTimeout(() => {
+                    confetti.remove();
+                }, duration * 1000 + delay * 1000);
+            }
+            
+            // Keep creating more confetti periodically
+            setTimeout(() => createConfetti(count/2), 3000);
+        }
+        
+        // Functions for Audio Spectrum Visualization
+        function initAudioSpectrum() {
+            const audio = document.getElementById('bgMusic');
+            canvas = document.getElementById('audioSpectrum');
+            canvasCtx = canvas.getContext('2d');
+
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            analyser = audioContext.createAnalyser();
+            source = audioContext.createMediaElementSource(audio);
+
+            source.connect(analyser);
+            analyser.connect(audioContext.destination);
+
+            analyser.fftSize = 256; // Fast Fourier Transform size
+            bufferLength = analyser.frequencyBinCount;
+            dataArray = new Uint8Array(bufferLength);
+
+            drawSpectrum();
+        }
+
+        function drawSpectrum() {
+            requestAnimationFrame(drawSpectrum);
+
+            if (!analyser || !dataArray) return; // Ensure analyser and dataArray are initialized
+
+            analyser.getByteFrequencyData(dataArray);
+
+            canvasCtx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+
+            const barWidth = (canvas.width / bufferLength) * 2.5; // Adjust for spacing
+            let x = 0;
+
+            for (let i = 0; i < bufferLength; i++) {
+                const barHeight = dataArray[i] / 2; // Adjust height for visualization
+
+                // Gradient for bars
+                const gradient = canvasCtx.createLinearGradient(0, canvas.height, 0, 0);
+                gradient.addColorStop(0, `rgb(${barHeight + 100}, 50, 150)`);
+                gradient.addColorStop(1, `rgb(255, ${barHeight + 100}, 200)`);
+
+                canvasCtx.fillStyle = gradient;
+                canvasCtx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+
+                x += barWidth + 1; // Spacing between bars
+            }
+        }
+
+        // Function to blow out candles and show gallery
+        function blowOutCandles() {
+            const blowOutPrompt = document.getElementById('blowOutPrompt');
+            const candlesContainer = document.getElementById('candlesContainer');
+            const ourMemoryGallery = document.getElementById('ourMemoryGallery');
+
+            // Hide the prompt and candles
+            blowOutPrompt.classList.add('hidden');
+            candlesContainer.classList.add('opacity-0'); // Use opacity for smooth fade out
+
+            // Show the gallery after a short delay
+            setTimeout(() => {
+                ourMemoryGallery.classList.remove('hidden');
+                ourMemoryGallery.classList.add('animate__fadeInUp'); // Add fade-in animation
+            }, 500); // Adjust delay as needed for the candle fade out
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Untuk perangkat seluler, kita memerlukan interaksi pengguna pertama kali agar AudioContext dapat berjalan.
+            // Ini akan mencoba melanjutkan AudioContext saat ada klik pertama di body.
+            document.body.addEventListener('click', () => {
+                if (audioContext && audioContext.state === 'suspended') {
+                    audioContext.resume().then(() => {
+                        console.log('AudioContext resumed successfully');
+                    });
+                }
+            }, { once: true });
+        });
+    </script>
+</html>
